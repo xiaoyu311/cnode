@@ -1,7 +1,7 @@
 header{
 	display: flex;
 	height: 80px;
-	background-color: #7dbcea;
+	background-color: #444;
 	justify-content: space-between;
 	align-items: center;
 	padding: 0 10px;
@@ -10,3 +10,76 @@ header{
 	color: #fff;
 }
 /*!important很吊*/
+.header>h1 img{
+	width: 120px;
+}
+.Showtopics{
+	display: flex;
+	padding: 10px;
+}
+.Showtopics_left{
+	display: flex;
+	align-items: center;
+	flex-shrink: 0;
+}
+.Showtopics_left_span{
+	padding: 0 5px;
+	color: #fff;
+	border-radius: 5px;
+}
+.Showtopics_right{
+	flex-grow: 1;
+	overflow: hidden;
+	white-space: nowrap;
+	padding-left: 10px;
+}
+.Showtopics_right h3{
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+#TopicId{
+	padding: 10px;
+}
+#TopicId img{
+	width: 100%
+}
+#other{
+	border-bottom: 2px solid #ccc;
+	padding-bottom: 20px;
+	margin: 30px 0;
+}
+#other h3{
+	text-align: center;
+	padding: 10px 0;
+}
+#other h1{
+	text-align: center;
+	padding: 10px 0;
+}
+#other h2{
+	text-align: center;
+	padding: 10px 0;
+}
+#other h4{
+	text-align: center;
+	padding: 10px 0;
+}
+#other h5{
+	text-align: center;
+	padding: 10px 0;
+}
+#TopicId .show{
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	border-bottom: 1px solid #ccc;
+}
+#TopicId .show .details{
+	flex-grow: 1;
+	padding-left: 10px;
+	line-height: 20px;
+	padding-bottom: 20px;
+}
+#TopicId .show .details h4{
+	padding-left: 10px;
+}

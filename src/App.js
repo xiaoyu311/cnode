@@ -1,23 +1,24 @@
 import React from 'react';
-
-import { HashRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Home from './components/Home';
+import TopicId from './components/TopicId';
 import Footer from './components/Footer';
 
 class App extends React.Component{
 	render(){
 		return(
 			<div>
-				<HashRouter>
+				<BrowserRouter>
 					<div>
 						<Header />
 
 						<Route path='/' exact component={Home} />
+						<Route path='/topic/:id' component={TopicId} />
 
 						<Footer />
 					</div>
-				</HashRouter>
+				</BrowserRouter>
 			</div>
 		)
 	}

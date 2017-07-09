@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import {url} from '../config.js'
 import {NavLink} from 'react-router-dom'
+import img from '../images/cnodejs_light.png'
 import { Button,  Modal, Input, Icon, message, Avatar, Dropdown, Menu } from 'antd'
 
 
@@ -43,12 +44,22 @@ class Header extends React.Component{
 
 				})
 				sessionStorage.accesstoken = accesstoken
+				sessionStorage.avatar_url = this.state.data.avatar_url
+				sessionStorage.id = this.state.data.id
+				sessionStorage.loginname = this.state.data.loginname
 			})
 			.catch( err =>  {
 				message.error('YOU SHOULD AGAIN')
 				this.setState({confirmLoading:false})
 			})
 
+	}
+	handleOut(){
+		this.setState({
+			visible:false,
+			Islogin:false,
+			confirmLoading:false
+		})
 	}
 	render(){
 		let {visible, input, password, Islogin, confirmLoading, data} = this.state;
@@ -62,13 +73,13 @@ class Header extends React.Component{
 						<p>personal center</p>
 					</Menu.Item>
 					<Menu.Item>
-						<Button type="danger">LOG OUT</Button>
+						<Button onClick={this.handleOut.bind(this)} type="danger">LOG OUT</Button>
 					</Menu.Item>
 				</Menu>
 			)
 		return(
 			<header className="header">
-				<h1><NavLink to='/'>CNode</NavLink></h1>
+				<h1><NavLink to='/'><img src={img} alt="img"/></NavLink></h1>
 				{
 					Islogin ? 
 					<Dropdown overlay={menu}>
@@ -77,7 +88,7 @@ class Header extends React.Component{
 					:
 					<div>
 						<Button 
-						 	type="primary" 
+						 	type="dashed" 
 						 	size="large"
 						 	onClick={this.handleClick.bind(this)} >
 						 	Login
@@ -109,13 +120,6 @@ class Header extends React.Component{
 						</Modal>							
 					</div>
 				}
-
-				
-
-				
-
-
-
 			</header>
 		)
 	}
