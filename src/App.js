@@ -1,17 +1,17 @@
 import React from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { HashRouter, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Home from './components/Home';
 import TopicId from './components/TopicId';
+import NewTopic from './components/NewTopic';
 import Message from './components/Message';
 import Personal from './components/Personal';
-import Footer from './components/Footer';
 
 class App extends React.Component{
 	render(){
 		return(
 			<div>
-				<BrowserRouter>
+				<HashRouter>
 					<div>
 						<Header />
 
@@ -19,12 +19,14 @@ class App extends React.Component{
 						<Route path='/topic/:id' component={TopicId} />
 						<Route path='/messages' component={Message} />
 						<Route path='/user/:loginname' component={Personal} />
+						<Route path='/topics' component={NewTopic} />
 
-						<Footer />
 					</div>
-				</BrowserRouter>
+				</HashRouter>
 			</div>
 		)
 	}
 } 
 export default App
+
+//HashRouter

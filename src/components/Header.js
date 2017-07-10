@@ -1,9 +1,9 @@
 import React from 'react';
 import axios from 'axios';
 import {url} from '../config.js'
-import {NavLink} from 'react-router-dom'
+import {withRouter, NavLink} from 'react-router-dom'
 import img from '../images/cnodejs_light.png'
-import { Button,  Modal, Input, Icon, message, Avatar, Dropdown, Menu } from 'antd'
+import { Button,  Modal, Input, Icon, message, Avatar, Dropdown, Menu, Badge} from 'antd'
 
 
 class Header extends React.Component{
@@ -15,7 +15,8 @@ class Header extends React.Component{
 			password:123456789,
 			data:null,
 			Islogin:false,
-			confirmLoading:false
+			confirmLoading:false,
+			messages:0
 		}
 	}
 	handleClick(){
@@ -47,12 +48,14 @@ class Header extends React.Component{
 				sessionStorage.avatar_url = this.state.data.avatar_url
 				sessionStorage.id = this.state.data.id
 				sessionStorage.loginname = this.state.data.loginname
+		axios.get(`${url}/message/count?accesstoken=${accesstoken}`)
+			.then( res => this.setState({messages:res.data.data}) )
+			.catch( err => message.error(err) )
 			})
 			.catch( err =>  {
 				message.error('YOU SHOULD AGAIN')
 				this.setState({confirmLoading:false})
 			})
-
 	}
 	handleOut(){
 		this.setState({
@@ -62,7 +65,7 @@ class Header extends React.Component{
 		})
 	}
 	render(){
-		let {visible, input, password, Islogin, confirmLoading, data} = this.state;
+		let {visible, input, password, Islogin, confirmLoading, data, messages} = this.state;
 		const menu = !Islogin? null :
 			(
 				<Menu>
@@ -70,10 +73,13 @@ class Header extends React.Component{
 						<h3>{data.loginname}</h3>
 					</Menu.Item>
 					<Menu.Item>
-						<p><NavLink to="/user/:loginname">Personal center</NavLink></p>
+						<p><NavLink to={`/user/${data.loginname}`}>Personal center</NavLink></p>
 					</Menu.Item>
 					<Menu.Item>
 						<p><NavLink to='/messages'>Message</NavLink></p>
+					</Menu.Item>
+					<Menu.Item>
+						<p><NavLink to='/Topics'>New Topic</NavLink></p>
 					</Menu.Item>
 					<Menu.Item>
 						<Button onClick={this.handleOut.bind(this)} type="danger">LOG OUT</Button>
@@ -82,11 +88,14 @@ class Header extends React.Component{
 			)
 		return(
 			<header className="header">
+				<Icon onClick={()=>this.props.history.goBack()} style={{fontSize:'30px',color:'#fff'}} type="left-circle" />
 				<h1><NavLink to='/'><img src={img} alt="img"/></NavLink></h1>
 				{
 					Islogin ? 
 					<Dropdown overlay={menu}>
-						<Avatar size='large' src={data.avatar_url} />
+						<Badge showZero count={messages}>
+							<Avatar size='large' src={data.avatar_url} />
+						</Badge>
 					</Dropdown>
 					:
 					<div>
@@ -97,7 +106,7 @@ class Header extends React.Component{
 						 	Login
 						</Button>
 						<Modal
-							style={{marginTop:'150px'}}
+							style={{marginTop:'50px'}}
 							title="Login"
 							visible={visible} 
 							okText="OK"
@@ -127,4 +136,4 @@ class Header extends React.Component{
 		)
 	}
 } 
-export default Header
+export default withRouter(Header)

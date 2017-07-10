@@ -20,7 +20,6 @@ class Message extends React.Component{
 	}
 	render(){
 		let {data} = this.state
-		console.log(data)
 		return(
 			<div className="Message">
 				<h3 className="Message_new"><NavLink to="/">主页</NavLink>/新消息 <Icon type="caret-down" /> </h3>
@@ -29,7 +28,7 @@ class Message extends React.Component{
 						data.hasnot_read_messages.map( item =>
 							<div className="Message_show" key={item.id}>
 								<p>
-									<NavLink to="/">{item.author.loginname}</NavLink>
+									<NavLink to={`/user/${item.author.loginname}`}>{item.author.loginname}</NavLink>
 									&nbsp;
 									&nbsp;
 									在文章
@@ -55,7 +54,7 @@ class Message extends React.Component{
 						data.has_read_messages.map( item=>
 							<div className="Message_show" key={item.id}>
 								<p>
-									<NavLink to="/">{item.author.loginname}</NavLink>
+									<NavLink to={`/user/${item.author.loginname}`}>{item.author.loginname}</NavLink>
 									&nbsp;
 									&nbsp;
 									在文章

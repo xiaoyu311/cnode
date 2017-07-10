@@ -13,9 +13,14 @@ header{
 .header>h1 img{
 	width: 120px;
 }
+.Home ul{
+	margin-top: 20px;
+}
 .Showtopics{
 	display: flex;
-	padding: 10px;
+	line-height: 20px;
+	padding: 5px 0;
+	border-bottom: 1px solid rgb(128, 189, 1)
 }
 .Showtopics_left{
 	display: flex;
@@ -135,4 +140,18 @@ header{
 .people{
 	display: flex;
 	align-items: center;
+}
+.footer{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	background-color: #03a1b5;
+}
+.footer p{
+	line-height: 20px;
+	font-size: 12px;
+	color: #fff;
+}
+.NewTopic{
+	padding: 15px;
 }

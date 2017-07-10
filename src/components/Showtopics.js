@@ -1,5 +1,5 @@
 import React from 'react';
-import { Avatar } from 'antd'
+import { Avatar} from 'antd'
 import {NavLink} from 'react-router-dom'
 
 class Showtopics extends React.Component{
@@ -15,14 +15,13 @@ class Showtopics extends React.Component{
 	}
 	render(){
 		let {tabs} = this.state;
-		console.log(this.props.data)
 		return(
 			<div>
 				{
 					this.props.data.map( item =>(
 						<div className="Showtopics" key={item.id}>
 							<div className="Showtopics_left">
-								<Avatar src={item.author.avatar_url} alt="avatar_url" />
+								<NavLink to={`/user/${item.author.loginname}`}><Avatar src={item.author.avatar_url} alt="avatar_url" /></NavLink>
 								&nbsp;
 								&nbsp;
 								<span style={{background: item.top? '#80bd01':item.good? '#80bd01' :'#999'}} className="Showtopics_left_span">{item.top? '置顶' : item.good?'精华' :tabs[item.tab]}</span>
@@ -37,6 +36,7 @@ class Showtopics extends React.Component{
 						</div>
 					))
 				}
+				
 			</div>
 		)
 	}

@@ -2,7 +2,7 @@ import React from 'react'
 import axios from 'axios';
 import {url} from '../config.js';
 import {NavLink} from 'react-router-dom';
-import { message, Icon, Avatar, Card} from 'antd'
+import { message, Icon, Avatar, Card } from 'antd'
 import moment from 'moment';
 
 
@@ -14,8 +14,7 @@ class Personal extends React.Component{
 		}
 	}
 	componentDidMount(){
-		let loginname = sessionStorage.loginname
-		console.log(loginname)
+		let loginname = this.props.match.params.loginname
 		if (loginname) {
 			axios.get(`${url}/user/${loginname}`)
 				.then( res => this.setState({data:res.data.data}) )
@@ -24,7 +23,6 @@ class Personal extends React.Component{
 	}
 	render(){
 		let {data} = this.state;
-		console.log(data)
 		return(
 			<div>
 				{

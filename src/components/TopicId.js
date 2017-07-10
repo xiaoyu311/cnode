@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from 'axios';
 import {url} from '../config.js'
-import { message, Card, Avatar, Icon, Input, Button, Modal } from 'antd';
+import { message, Card, Avatar, Icon, Input, Button, Modal, notification } from 'antd';
 import {NavLink} from 'react-router-dom'
 import moment from 'moment';
 
@@ -15,7 +15,14 @@ class TopicId extends React.Component{
 			content:'',
 			title:'',
 			people:'',
-			reply:''
+			reply:'',
+			tab:{
+				share:'分享',
+				ask:'问答',
+				dev:'客户端测试',
+				job:'招聘'
+			},
+			male:false
 		}
 	}
 	getData(){
@@ -37,6 +44,7 @@ class TopicId extends React.Component{
 		})
 	}
 	handleClick(){
+		this.setState({male:true})
 		let id = this.state.data.id
 		let accesstoken = sessionStorage.accesstoken
 		if (accesstoken) {
@@ -44,10 +52,21 @@ class TopicId extends React.Component{
 				.then( res => {
 					this.getData()
 					this.setState({
-						TextArea:''
-					})	
+						TextArea:'',
+						male:false
+					})
+					notification.open({
+						message: 'SUCCESS',
+						description: '评论成功！但是不要乱发容易被封号'
+					})
 				})
-				.catch( err => message.error('This is a message of error') )
+				.catch( err => {
+					message.error('This is a message of error') 
+					this.setState({
+						TextArea:'',
+						male:false
+					})
+				})
 		}else{
 			message.error('This is a message of error')
 			return
@@ -95,8 +114,21 @@ class TopicId extends React.Component{
 			return
 		}
 	}
+	handleCollect(){
+		let accesstoken = sessionStorage.accesstoken
+		console.log(this)
+		let topic_id = this.state.data.id
+		axios.post(`${url}/topic_collect/collect`,{accesstoken,topic_id})
+			.then( res =>{
+				notification.open({
+					message: 'SUCCESS',
+					description: '收藏成功'
+				})
+			})
+			.catch(res =>  message.error('This is a message of error') )
+	}
 	render(){
-	let {data, TextArea, visible, content, title, people, reply} = this.state
+	let {data, TextArea, visible, content, title, people, reply, tab, male} = this.state
 		return(
 			<div id="TopicId">
 				{
@@ -104,13 +136,22 @@ class TopicId extends React.Component{
 					<Card loading style={{ width: '100%' }}></Card>
 					:
 					<div>
-						<h3>{data.title}</h3>
-						<p>
-							发布于：{moment(data.replies.create_at).fromNow()}
+						<h3 style={{color:'#108ee9'}}>{data.title}</h3>
+						<p style={{marginTop:'12px',paddingBottom:'10px', borderBottom:'1px solid #ccc'}}>
+							发布于：{moment(data.create_at).fromNow()}
 							&nbsp;
 							&nbsp;
-							<span><NavLink to="/">{data.author.loginname}</NavLink></span>
+							<span>作者：</span>
+							<span><NavLink to={`/user/${data.author.loginname}`}>{data.author.loginname}</NavLink></span>
+							&nbsp;
+							&nbsp;
+							<span>浏览量：{data.visit_count}</span>
+							&nbsp;
+							&nbsp;
+							<span>来自：{tab[data.tab]}</span>
 						</p>
+						<Button onClick={this.handleCollect.bind(this)} style={{marginTop:'10px'}} type="primary">收藏</Button>
+
 						<div id="other" dangerouslySetInnerHTML={{ __html: data.content}} />
 						
 					</div>
@@ -144,28 +185,36 @@ class TopicId extends React.Component{
 					):
 					null
 				}
-				<h3 style={{marginTop:'30px'}}>发表评论：</h3>
-				<Input
-					placeholder="Please write your content"
-					value={TextArea}
-					onChange={this.handleChange.bind(this,'TextArea')}
-					type="textarea"
-					rows={5} />
-				<Button style={{marginTop:"10px"}} onClick={this.handleClick.bind(this)} type="primary">content</Button>
-				<Modal
-					title={title}
-					okText="OK"
-					cancelText="Cancel"
-					visible={visible}
-					onOk={this.handleOk.bind(this)}
-					onCancel={() => this.setState({visible:false,people:''})}>
-					<Input
-						placeholder="Please write your content"
-						value={people}
-						onChange={this.handleChange.bind(this,'people')}
-						type="textarea"
-						rows={5} />	
-				</Modal>
+				{
+					data? 
+					<div>
+						<h3 style={{marginTop:'30px'}}>发表评论：</h3>
+						<Input
+							placeholder="Please write your content"
+							value={TextArea}
+							onChange={this.handleChange.bind(this,'TextArea')}
+							type="textarea"
+							rows={5} />
+						<Button loading={male} style={{marginTop:"10px"}} onClick={this.handleClick.bind(this)} type="primary">content</Button>
+						<Modal
+							title={title}
+							okText="OK"
+							cancelText="Cancel"
+							visible={visible}
+							onOk={this.handleOk.bind(this)}
+							onCancel={() => this.setState({visible:false,people:''})}>
+							<Input
+								placeholder="Please write your content"
+								value={people}
+								onChange={this.handleChange.bind(this,'people')}
+								type="textarea"
+								rows={5} />	
+						</Modal>
+					</div>
+					:
+					null
+				}
+				
 			</div>
 		)
 	}
