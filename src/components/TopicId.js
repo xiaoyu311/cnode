@@ -70,7 +70,8 @@ class TopicId extends React.Component{
 		this.setState({
 			visible:true,
 			title:`@${reply.author.loginname}`,
-			reply:reply
+			reply:reply,
+			people:`@${reply.author.loginname} `
 		})
 	}
 	handleOk(){

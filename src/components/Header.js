@@ -11,7 +11,7 @@ class Header extends React.Component{
 		super()
 		this.state = {
 			visible:false,
-			input:'e9aec5bd-eaf5-497c-b307-beaf4a020f6e',
+			input:'3f77acb1-d753-4393-b784-44913190e6a8',
 			password:123456789,
 			data:null,
 			Islogin:false,
@@ -70,7 +70,10 @@ class Header extends React.Component{
 						<h3>{data.loginname}</h3>
 					</Menu.Item>
 					<Menu.Item>
-						<p>personal center</p>
+						<p><NavLink to="/user/:loginname">Personal center</NavLink></p>
+					</Menu.Item>
+					<Menu.Item>
+						<p><NavLink to='/messages'>Message</NavLink></p>
 					</Menu.Item>
 					<Menu.Item>
 						<Button onClick={this.handleOut.bind(this)} type="danger">LOG OUT</Button>

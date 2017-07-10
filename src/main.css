@@ -83,3 +83,56 @@ header{
 #TopicId .show .details h4{
 	padding-left: 10px;
 }
+.Message{
+	padding: 15px;
+}
+.Message_show{
+	display: flex;
+	justify-content: space-between;
+	line-height: 30px;
+}
+.Message_new{
+	background-color: #f6f6f6;
+	color: #80bd01;
+	padding-left: 10px;
+	line-height: 40px;
+	margin-bottom: 15px;
+}
+.Message_notnew{
+	background-color: #f6f6f6;
+	color: #80bd01;
+	padding-left: 10px;
+	line-height: 40px;
+	margin: 15px 0;
+}
+.Personal_big{
+	padding: 15px;
+}
+.Personal_top{
+	display: flex;
+	flex-direction: column;
+	line-height: 25px;
+}
+.Personal_top h3{
+	background-color: #f6f6f6;
+	color: #80bd01;
+	line-height: 40px;
+	text-indent: 10px;
+}
+.newTopics{
+	background-color: #f6f6f6;
+	color: #80bd01;
+	line-height: 40px;
+	text-indent: 10px;
+	margin: 20px 0;
+}
+.Personal_show{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 10px 0;
+}
+.people{
+	display: flex;
+	align-items: center;
+}
