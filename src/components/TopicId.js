@@ -22,7 +22,9 @@ class TopicId extends React.Component{
 				dev:'客户端测试',
 				job:'招聘'
 			},
-			male:false
+			male:false,
+			collect:'',
+			select:false
 		}
 	}
 	getData(){
@@ -36,7 +38,29 @@ class TopicId extends React.Component{
 			.catch( err =>  message.error('This is a message of error') )
 	}
 	componentDidMount(){
-		this.getData()
+		let loginname = sessionStorage.loginname
+		let id = this.props.match.params.id
+		axios.get(`${url}/topic/${id}`)
+			.then( res => {
+				this.setState({
+					data:res.data.data,
+				})
+			})
+			.then(res =>
+				axios.get(`${url}/topic_collect/${loginname}`)
+				.then( res => this.setState({collect:res.data.data}) )
+				.then( res => {
+					var arr = this.state.collect
+					for (var i = 0; i < arr.length; i++) {
+						if (arr[i].id === this.state.data.id) {
+							this.setState({select:true})
+							break;
+						}
+					}
+				})
+				.catch( err => message.error('Collect') )
+			)
+			.catch( err =>  message.error('This is a message of error') )
 	}
 	handleChange(content,e){
 		this.setState({
@@ -47,6 +71,7 @@ class TopicId extends React.Component{
 		this.setState({male:true})
 		let id = this.state.data.id
 		let accesstoken = sessionStorage.accesstoken
+		let content = this.state.TextArea
 		if (accesstoken) {
 			axios.post(`${url}/topic/${id}/replies`,{accesstoken,content})
 				.then( res => {
@@ -116,19 +141,21 @@ class TopicId extends React.Component{
 	}
 	handleCollect(){
 		let accesstoken = sessionStorage.accesstoken
-		console.log(this)
 		let topic_id = this.state.data.id
-		axios.post(`${url}/topic_collect/collect`,{accesstoken,topic_id})
+		let collect = this.state.select? 'de_collect' : 'collect' 
+		this.setState({select:!this.state.select})
+		axios.post(`${url}/topic_collect/${collect}`,{accesstoken,topic_id})
 			.then( res =>{
 				notification.open({
 					message: 'SUCCESS',
-					description: '收藏成功'
+					description: '成功'
 				})
+				console.log(res)
 			})
 			.catch(res =>  message.error('This is a message of error') )
 	}
 	render(){
-	let {data, TextArea, visible, content, title, people, reply, tab, male} = this.state
+	let {data, TextArea, visible, content, title, people, reply, tab, male, select} = this.state
 		return(
 			<div id="TopicId">
 				{
@@ -150,8 +177,7 @@ class TopicId extends React.Component{
 							&nbsp;
 							<span>来自：{tab[data.tab]}</span>
 						</p>
-						<Button onClick={this.handleCollect.bind(this)} style={{marginTop:'10px'}} type="primary">收藏</Button>
-
+						<Button onClick={this.handleCollect.bind(this)} style={{marginTop:'10px'}} type="primary">{!select?'收藏主题':'取消收藏'}</Button>
 						<div id="other" dangerouslySetInnerHTML={{ __html: data.content}} />
 						
 					</div>

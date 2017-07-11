@@ -11,7 +11,7 @@ class Header extends React.Component{
 		super()
 		this.state = {
 			visible:false,
-			input:'3f77acb1-d753-4393-b784-44913190e6a8',
+			input:'e9aec5bd-eaf5-497c-b307-beaf4a020f6e',
 			password:123456789,
 			data:null,
 			Islogin:false,
@@ -42,7 +42,6 @@ class Header extends React.Component{
 				 	confirmLoading:false,
 				 	input:'',
 				 	password:'',
-
 				})
 				sessionStorage.accesstoken = accesstoken
 				sessionStorage.avatar_url = this.state.data.avatar_url
@@ -82,6 +81,9 @@ class Header extends React.Component{
 						<p><NavLink to='/Topics'>New Topic</NavLink></p>
 					</Menu.Item>
 					<Menu.Item>
+						<p><NavLink to={`/topic_collect/${data.loginname}`}>Your Collect</NavLink></p>
+					</Menu.Item>
+					<Menu.Item>
 						<Button onClick={this.handleOut.bind(this)} type="danger">LOG OUT</Button>
 					</Menu.Item>
 				</Menu>
@@ -92,7 +94,7 @@ class Header extends React.Component{
 				<h1><NavLink to='/'><img src={img} alt="img"/></NavLink></h1>
 				{
 					Islogin ? 
-					<Dropdown overlay={menu}>
+					<Dropdown trigger={['click']} overlay={menu}>
 						<Badge showZero count={messages}>
 							<Avatar size='large' src={data.avatar_url} />
 						</Badge>

@@ -10,7 +10,8 @@ class Personal extends React.Component{
 	constructor(){
 		super()
 		this.state = {
-			data:null
+			data:null,
+			number:'',
 		}
 	}
 	componentDidMount(){
@@ -19,20 +20,35 @@ class Personal extends React.Component{
 			axios.get(`${url}/user/${loginname}`)
 				.then( res => this.setState({data:res.data.data}) )
 				.catch( err => message.error('Please Login') )
+			axios.get(`${url}/topic_collect/${loginname}`)
+				.then( res => this.setState({number:res.data.data.length}) )
+				.catch( err => message.error('Please Login') )
+		}
+	}
+	handleClick(loginname){
+		if (loginname) {
+			axios.get(`${url}/user/${loginname}`)
+				.then( res => this.setState({data:res.data.data}) )
+				.catch( err => message.error('Please Login') )
+			axios.get(`${url}/topic_collect/${loginname}`)
+				.then( res => this.setState({number:res.data.data.length}) )
+				.catch( err => message.error('Please Login') )
 		}
 	}
 	render(){
-		let {data} = this.state;
+		let {data , number} = this.state;
+		console.log(data)
 		return(
 			<div>
 				{
 					data?
 					<div className="Personal_big">
 						<div className="Personal_top">
-							<h3><NavLink to="/">主页&nbsp;&nbsp;<Icon type="aliwangwang-o" /></NavLink></h3>
+							<h3><NavLink to="/">主页</NavLink>&nbsp;<Icon type="aliwangwang-o" /></h3>
 							<Avatar style={{marginTop:'15px'}} src={data.avatar_url} />
 							<span>{data.loginname}</span>
 							<span>积分：{data.score}</span>
+							<NavLink to={`/topic_collect/${data.loginname}`}><span>收藏了{number}话题</span></NavLink>
 							<span><Icon type="github" />&nbsp;&nbsp;{data.githubUsername}</span>
 							<span>注册时间：{moment(data.create_at).fromNow()}</span>
 						</div>
@@ -44,10 +60,9 @@ class Personal extends React.Component{
 										<div className="people">
 											<Avatar src={item.author.avatar_url} />
 											&nbsp;
-											&nbsp;
 											<span>{item.author.loginname}</span>	
 										</div>
-										<span>{item.title}</span>
+										<span style={{width:'55%'}}><NavLink to={`/topic/${item.id}`}>{item.title}></NavLink></span>
 										<span>{moment(item.last_reply_at).fromNow()}</span>
 									</div>
 								)
@@ -57,12 +72,12 @@ class Personal extends React.Component{
 								data.recent_replies.map( item => 
 									<div className="Personal_show" key={item.id}>
 										<div className="people">
-											<Avatar src={item.author.avatar_url} />
+											<Avatar onClick={this.handleClick.bind(this,item.author.loginname)} src={item.author.avatar_url} />
 											&nbsp;
 											&nbsp;
 											<span>{item.author.loginname}</span>	
 										</div>
-										<span>{item.title}</span>
+										<span style={{width:'50%'}}><NavLink to={`/topic/${item.id}`}>{item.title}></NavLink></span>
 										<span>{moment(item.last_reply_at).fromNow()}</span>
 									</div>
 								)

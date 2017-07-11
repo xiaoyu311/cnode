@@ -27,21 +27,16 @@ class Message extends React.Component{
 					data?(
 						data.hasnot_read_messages.map( item =>
 							<div className="Message_show" key={item.id}>
-								<p>
 									<NavLink to={`/user/${item.author.loginname}`}>{item.author.loginname}</NavLink>
 									&nbsp;
-									&nbsp;
-									在文章
-									&nbsp;
-									&nbsp;
-									<NavLink to={`/topic/${item.topic.id}`}>{item.topic.title}</NavLink>
-									&nbsp;
-									&nbsp;
-									{
-										item.type === 'reply'?'回复了你' : '@了你'
-									}
-								</p>
-								<p>{moment(item.create_at).fromNow()}</p>
+									<p>	
+										<span>在文章</span>
+										&nbsp;
+										<NavLink to={`/topic/${item.topic.id}`}>{item.topic.title}</NavLink>
+										&nbsp;
+										<span>{item.type === 'reply'?'回复了你' : '@了你'}</span>	
+									</p>
+								<p className="Message_show_reply">{moment(item.create_at).fromNow()}</p>
 							</div>
 						)
 					)
@@ -53,21 +48,16 @@ class Message extends React.Component{
 					data?(
 						data.has_read_messages.map( item=>
 							<div className="Message_show" key={item.id}>
+								<NavLink to={`/user/${item.author.loginname}`}>{item.author.loginname}</NavLink>
+								&nbsp;
 								<p>
-									<NavLink to={`/user/${item.author.loginname}`}>{item.author.loginname}</NavLink>
-									&nbsp;
-									&nbsp;
-									在文章
-									&nbsp;
+									<span>在文章</span>
 									&nbsp;
 									<NavLink to={`/topic/${item.topic.id}`}>{item.topic.title}</NavLink>
 									&nbsp;
-									&nbsp;
-									{
-										item.type === 'reply'?'回复了你' : '@了你'
-									}
+									<span>{item.type === 'reply'?'回复了你' : '@了你'}</span>							
 								</p>
-								<p>{moment(item.create_at).fromNow()}</p>
+								<p className="Message_show_reply">{moment(item.create_at).fromNow()}</p>
 							</div>
 						)
 					)

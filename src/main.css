@@ -79,6 +79,9 @@ header{
 	justify-content: space-between;
 	border-bottom: 1px solid #ccc;
 }
+#TopicId .show span{
+	flex-shrink: 0;
+}
 #TopicId .show .details{
 	flex-grow: 1;
 	padding-left: 10px;
@@ -89,12 +92,17 @@ header{
 	padding-left: 10px;
 }
 .Message{
-	padding: 15px;
+	padding: 10px;
 }
 .Message_show{
 	display: flex;
 	justify-content: space-between;
 	line-height: 30px;
+	-ms-align-items: center;
+	align-items: center;
+}
+.Message_show_reply{
+	flex-shrink: 0;
 }
 .Message_new{
 	background-color: #f6f6f6;
@@ -111,7 +119,7 @@ header{
 	margin: 15px 0;
 }
 .Personal_big{
-	padding: 15px;
+	padding: 10px;
 }
 .Personal_top{
 	display: flex;
@@ -138,8 +146,12 @@ header{
 	padding: 10px 0;
 }
 .people{
+	width: 70px;
 	display: flex;
 	align-items: center;
+}
+.people>span{
+	flex-shrink: 0;
 }
 .footer{
 	display: flex;
@@ -153,5 +165,40 @@ header{
 	color: #fff;
 }
 .NewTopic{
-	padding: 15px;
+	padding: 10px;
+}
+.Collect{
+	padding: 10px;
+}
+.Collect>h3{
+	background-color: #f6f6f6;
+	color: #80bd01;
+	line-height: 40px;
+	text-indent: 10px;
+}
+.Collect>h3 span{
+	font-size: 12px;
+	margin-left: 5px;
+}
+.Collect_show{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 7px 0;
+	border-bottom: 1px solid #ccc;
+}
+.Collect_show_left{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 70px;
+}
+.Collect_show_rigth{
+	display: flex;
+	align-items: center;
+	width: 80px;
+	justify-content: space-between;
+}
+.Collect_first>div>ul{
+	margin-top: 15px;
 }
