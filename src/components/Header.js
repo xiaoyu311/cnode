@@ -62,6 +62,7 @@ class Header extends React.Component{
 			Islogin:false,
 			confirmLoading:false
 		})
+		sessionStorage.clear()
 	}
 	handleFun(){
 		this.setState({

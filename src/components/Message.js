@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import {url} from '../config.js';
 import {NavLink} from 'react-router-dom';
-import { message, Card, Icon  } from 'antd'
+import { message, Card, Icon, Avatar } from 'antd'
 import moment from 'moment';
 
 class Message extends React.Component{
@@ -25,6 +25,7 @@ class Message extends React.Component{
 	}
 	render(){
 		let {data} = this.state;
+		console.log(data)
 		return(
 			<div className="Message">
 				<h3 className="Message_new"><NavLink to="/">主页</NavLink>/新消息 <Icon type="caret-down" /> </h3>
@@ -32,13 +33,10 @@ class Message extends React.Component{
 					data?(
 						data.hasnot_read_messages.map( item =>
 							<div className="Message_show" key={item.id}>
-									<NavLink to={`/user/${item.author.loginname}`}>{item.author.loginname}</NavLink>
-									&nbsp;
-									<p>	
+									<NavLink to={`/user/${item.author.loginname}`}><Avatar src={item.author.avatar_url} /></NavLink>
+									<p style={{flexGrow:1,paddingLeft:'10px'}}>	
 										<span>在文章</span>
-										&nbsp;
 										<NavLink to={`/topic/${item.topic.id}`}>{item.topic.title}</NavLink>
-										&nbsp;
 										<span>{item.type === 'reply'?'回复了你' : '@了你'}</span>	
 									</p>
 								<p className="Message_show_reply">{moment(item.create_at).fromNow()}</p>
@@ -53,13 +51,10 @@ class Message extends React.Component{
 					data?(
 						data.has_read_messages.map( item=>
 							<div className="Message_show" key={item.id}>
-								<NavLink to={`/user/${item.author.loginname}`}>{item.author.loginname}</NavLink>
-								&nbsp;
-								<p>
+								<NavLink to={`/user/${item.author.loginname}`}><Avatar src={item.author.avatar_url} /></NavLink>
+								<p style={{flexGrow:1,paddingLeft:'10px'}}>
 									<span>在文章</span>
-									&nbsp;
 									<NavLink to={`/topic/${item.topic.id}`}>{item.topic.title}</NavLink>
-									&nbsp;
 									<span>{item.type === 'reply'?'回复了你' : '@了你'}</span>							
 								</p>
 								<p className="Message_show_reply">{moment(item.create_at).fromNow()}</p>

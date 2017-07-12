@@ -98,6 +98,7 @@ class TopicId extends React.Component{
 				})
 		}else{
 			message.error('Please Login')
+			this.setState({male:false})
 			return
 		}
 		
@@ -107,7 +108,7 @@ class TopicId extends React.Component{
 		if (accesstoken) {
 			axios.post(`${url}/reply/${reply_id}/ups`,{accesstoken})
 				.then( res => this.getData())
-				.catch( err => message.error('This is a message of error') )
+				.catch( err => message.error('不能给自己点赞') )
 		}else{
 			message.error('Please Login')
 			return
