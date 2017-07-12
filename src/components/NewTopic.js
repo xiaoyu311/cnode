@@ -21,7 +21,8 @@ class NewTopic extends React.Component{
 		let {tab, title, content} = this.state
 		let data = {accesstoken, tab, title, content}
 		this.setState({male:true})
-		axios.post(`${url}/topics`,data)
+		if (accesstoken) {
+			axios.post(`${url}/topics`,data)
 			.then( res => 
 				{
 					notification.open({
@@ -38,8 +39,11 @@ class NewTopic extends React.Component{
 			)
 			.catch( err => {
 				message.error(err)
-				male:false
+				this.setState({
+					male:false
+				})
 			})
+		}
 	}
 	handleChange(value) {
 		this.setState({

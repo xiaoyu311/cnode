@@ -47,18 +47,22 @@ class TopicId extends React.Component{
 				})
 			})
 			.then(res =>
-				axios.get(`${url}/topic_collect/${loginname}`)
-				.then( res => this.setState({collect:res.data.data}) )
-				.then( res => {
-					var arr = this.state.collect
-					for (var i = 0; i < arr.length; i++) {
-						if (arr[i].id === this.state.data.id) {
-							this.setState({select:true})
-							break;
-						}
+				{
+					if (loginname) {
+						axios.get(`${url}/topic_collect/${loginname}`)
+							.then( res => this.setState({collect:res.data.data}) )
+							.then( res => {
+								var arr = this.state.collect
+								for (var i = 0; i < arr.length; i++) {
+									if (arr[i].id === this.state.data.id) {
+										this.setState({select:true})
+										break;
+									}
+								}
+							})
+							.catch( err => message.error('Collect') )
 					}
-				})
-				.catch( err => message.error('Collect') )
+				}
 			)
 			.catch( err =>  message.error('This is a message of error') )
 	}
@@ -143,15 +147,17 @@ class TopicId extends React.Component{
 		let accesstoken = sessionStorage.accesstoken
 		let topic_id = this.state.data.id
 		let collect = this.state.select? 'de_collect' : 'collect' 
-		this.setState({select:!this.state.select})
-		axios.post(`${url}/topic_collect/${collect}`,{accesstoken,topic_id})
-			.then( res =>{
-				notification.open({
-					message: 'SUCCESS',
-					description: '成功'
+		if (accesstoken) {
+			this.setState({select:!this.state.select})
+			axios.post(`${url}/topic_collect/${collect}`,{accesstoken,topic_id})
+				.then( res =>{
+					notification.open({
+						message: 'SUCCESS',
+						description: '成功'
+					})
 				})
-			})
-			.catch(res =>  message.error('This is a message of error') )
+				.catch(res =>  message.error('This is a message of error') )
+		}
 	}
 	render(){
 	let {data, TextArea, visible, content, title, people, reply, tab, male, select} = this.state
