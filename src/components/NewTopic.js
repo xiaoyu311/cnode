@@ -43,6 +43,9 @@ class NewTopic extends React.Component{
 					male:false
 				})
 			})
+		}else{
+			message.error('Please Login')
+			return
 		}
 	}
 	handleChange(value) {

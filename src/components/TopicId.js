@@ -97,7 +97,7 @@ class TopicId extends React.Component{
 					})
 				})
 		}else{
-			message.error('This is a message of error')
+			message.error('Please Login')
 			return
 		}
 		
@@ -109,7 +109,7 @@ class TopicId extends React.Component{
 				.then( res => this.getData())
 				.catch( err => message.error('This is a message of error') )
 		}else{
-			message.error('This is a message of error')
+			message.error('Please Login')
 			return
 		}
 
@@ -139,7 +139,7 @@ class TopicId extends React.Component{
 				})
 				.catch( err => message.error('This is a message of error') )
 		}else{
-			message.error('This is a message of error')
+			message.error('Please Login')
 			return
 		}
 	}
@@ -157,6 +157,9 @@ class TopicId extends React.Component{
 					})
 				})
 				.catch(res =>  message.error('This is a message of error') )
+		}else{
+			message.error('Please Login')
+			return
 		}
 	}
 	render(){
