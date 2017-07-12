@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { HashRouter, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Home from './components/Home';
 import TopicId from './components/TopicId';
@@ -15,19 +15,19 @@ class App extends React.Component{
 	render(){
 		return(
 			<div>
-				<BrowserRouter>
+				<HashRouter>
 					<div>
 						<Header />
 
 						<Route path='/' exact component={Home} />
 						<Route path='/topic/:id' component={TopicId} />
-						<Route path='/messages' component={Message} />
+						<Route path='/messages' component={Message}  />
 						<Route path='/user/:loginname' component={Personal} />
 						<Route path='/topic_collect/:loginname' component={Collect} />
 						<Route path='/topics' component={NewTopic} />
 
 					</div>
-				</BrowserRouter>
+				</HashRouter>
 			</div>
 		)
 	}

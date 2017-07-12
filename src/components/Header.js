@@ -63,6 +63,11 @@ class Header extends React.Component{
 			confirmLoading:false
 		})
 	}
+	handleFun(){
+		this.setState({
+			messages:0
+		})
+	}
 	render(){
 		let {visible, input, password, Islogin, confirmLoading, data, messages} = this.state;
 		const menu = !Islogin? null :
@@ -75,7 +80,7 @@ class Header extends React.Component{
 						<p><NavLink to={`/user/${data.loginname}`}>Personal center</NavLink></p>
 					</Menu.Item>
 					<Menu.Item>
-						<p><NavLink to='/messages'>Message</NavLink></p>
+						<p onClick={this.handleFun.bind(this)}><NavLink to={{pathname:'/messages',state:this.fun}}>Message</NavLink></p>
 					</Menu.Item>
 					<Menu.Item>
 						<p><NavLink to='/Topics'>New Topic</NavLink></p>
@@ -139,3 +144,6 @@ class Header extends React.Component{
 	}
 } 
 export default withRouter(Header)
+
+
+//4e30943f-f3ec-4d59-b897-f97f2418cfb9 

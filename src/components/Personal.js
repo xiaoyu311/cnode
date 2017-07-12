@@ -37,7 +37,6 @@ class Personal extends React.Component{
 	}
 	render(){
 		let {data , number} = this.state;
-		console.log(data)
 		return(
 			<div>
 				{

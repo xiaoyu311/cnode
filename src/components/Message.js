@@ -16,10 +16,15 @@ class Message extends React.Component{
 		let accesstoken = sessionStorage.accesstoken
 		axios.get(`${url}/messages?accesstoken=${accesstoken}`)
 			.then( res => this.setState({data:res.data.data}) )
+			.then( res =>
+				axios.post(`${url}/message/mark_all`,{accesstoken})
+					.then( res => {return })
+					.catch( err => message.error(err))
+			)
 			.catch( err => message.error(err))
 	}
 	render(){
-		let {data} = this.state
+		let {data} = this.state;
 		return(
 			<div className="Message">
 				<h3 className="Message_new"><NavLink to="/">主页</NavLink>/新消息 <Icon type="caret-down" /> </h3>

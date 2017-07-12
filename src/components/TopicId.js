@@ -150,14 +150,13 @@ class TopicId extends React.Component{
 					message: 'SUCCESS',
 					description: '成功'
 				})
-				console.log(res)
 			})
 			.catch(res =>  message.error('This is a message of error') )
 	}
 	render(){
 	let {data, TextArea, visible, content, title, people, reply, tab, male, select} = this.state
 		return(
-			<div id="TopicId">
+			<div style={{padding:'10px',overflow:'hidden'}}>
 				{
 					!data?
 					<Card loading style={{ width: '100%' }}></Card>
@@ -167,13 +166,10 @@ class TopicId extends React.Component{
 						<p style={{marginTop:'12px',paddingBottom:'10px', borderBottom:'1px solid #ccc'}}>
 							发布于：{moment(data.create_at).fromNow()}
 							&nbsp;
-							&nbsp;
 							<span>作者：</span>
 							<span><NavLink to={`/user/${data.author.loginname}`}>{data.author.loginname}</NavLink></span>
 							&nbsp;
-							&nbsp;
 							<span>浏览量：{data.visit_count}</span>
-							&nbsp;
 							&nbsp;
 							<span>来自：{tab[data.tab]}</span>
 						</p>
@@ -190,19 +186,21 @@ class TopicId extends React.Component{
 									<div className="show" key={item.id}>
 										<Avatar src={item.author.avatar_url} alt="author" />
 										<div className="details">
-											<span><NavLink to="/">{item.author.loginname}</NavLink></span>
-											&nbsp;
-											&nbsp;
-											<span>{index+1}楼</span>
-											&nbsp;
-											&nbsp;
-											<span>{moment(item.create_at).fromNow()}</span>
-											<h4 dangerouslySetInnerHTML={{__html:item.content}} />
-										</div>
-										<div className="zan">
-											<Icon style={{cursor: 'pointer'}} onClick={this.handleLike.bind(this,item.id)} type="like" />
-											<span>{item.ups.length===0? null : item.ups.length}</span>
-											<Icon onClick={this.handleContent.bind(this,item)}  style={{cursor: 'pointer'}} type="message" />
+											<div className="details_first">
+												<div>
+													<span><NavLink to="/">{item.author.loginname}</NavLink></span>
+													&nbsp;
+													<span>{index+1}楼</span>
+													&nbsp;
+													<span>{moment(item.create_at).fromNow()}</span>
+												</div>
+												<div className="zan">
+													<Icon style={{cursor: 'pointer'}} onClick={this.handleLike.bind(this,item.id)} type="like" />
+													<span>{item.ups.length===0? null : item.ups.length}</span>
+													<Icon onClick={this.handleContent.bind(this,item)}  style={{cursor: 'pointer'}} type="message" />
+												</div>
+											</div>
+											<div dangerouslySetInnerHTML={{__html:item.content}} />
 										</div>
 									</div>
 								))

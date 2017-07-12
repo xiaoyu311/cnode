@@ -42,10 +42,7 @@ header{
 	text-overflow: ellipsis;
 	overflow: hidden;
 }
-#TopicId{
-	padding: 10px;
-}
-#TopicId img{
+img{
 	width: 100%
 }
 #other{
@@ -73,23 +70,30 @@ header{
 	text-align: center;
 	padding: 10px 0;
 }
-#TopicId .show{
+.show{
 	display: flex;
-	align-items: center;
-	justify-content: space-between;
 	border-bottom: 1px solid #ccc;
 }
-#TopicId .show span{
+.show>span{
 	flex-shrink: 0;
 }
-#TopicId .show .details{
+.show .details{
 	flex-grow: 1;
 	padding-left: 10px;
 	line-height: 20px;
 	padding-bottom: 20px;
 }
+.details_first{
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
 #TopicId .show .details h4{
+	flex-grow: 1;
 	padding-left: 10px;
+}
+#TopicId .show .zan{
+	flex-shrink: 0;
 }
 .Message{
 	padding: 10px;
