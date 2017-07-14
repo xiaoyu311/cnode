@@ -25,7 +25,6 @@ class Message extends React.Component{
 	}
 	render(){
 		let {data} = this.state;
-		console.log(data)
 		return(
 			<div className="Message">
 				<h3 className="Message_new"><NavLink to="/">主页</NavLink>/新消息 <Icon type="caret-down" /> </h3>
@@ -34,10 +33,10 @@ class Message extends React.Component{
 						data.hasnot_read_messages.map( item =>
 							<div className="Message_show" key={item.id}>
 									<NavLink to={`/user/${item.author.loginname}`}><Avatar src={item.author.avatar_url} /></NavLink>
-									<p style={{flexGrow:1,paddingLeft:'10px'}}>	
+									<p style={{flexGrow:1,paddingLeft:'10px'}}>
 										<span>在文章</span>
 										<NavLink to={`/topic/${item.topic.id}`}>{item.topic.title}</NavLink>
-										<span>{item.type === 'reply'?'回复了你' : '@了你'}</span>	
+										<span>{item.type === 'reply'?'回复了你' : '@了你'}</span>
 									</p>
 								<p className="Message_show_reply">{moment(item.create_at).fromNow()}</p>
 							</div>
@@ -55,7 +54,7 @@ class Message extends React.Component{
 								<p style={{flexGrow:1,paddingLeft:'10px'}}>
 									<span>在文章</span>
 									<NavLink to={`/topic/${item.topic.id}`}>{item.topic.title}</NavLink>
-									<span>{item.type === 'reply'?'回复了你' : '@了你'}</span>							
+									<span>{item.type === 'reply'?'回复了你' : '@了你'}</span>
 								</p>
 								<p className="Message_show_reply">{moment(item.create_at).fromNow()}</p>
 							</div>

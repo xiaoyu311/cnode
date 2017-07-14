@@ -25,9 +25,9 @@ class Header extends React.Component{
 			data:null
 		})
 	}
-	handleChange(e){
+	handleChange(e) {
 		this.setState({
-			input:e.target.value
+			input: e.target.value
 		})
 	}
 	handleOk(){
@@ -78,7 +78,7 @@ class Header extends React.Component{
 						<h3>{data.loginname}</h3>
 					</Menu.Item>
 					<Menu.Item>
-						<p><NavLink to={`/user/${data.loginname}`}>Personal center</NavLink></p>
+						<p><NavLink to={`/people/${sessionStorage.loginname}`}>Personal center</NavLink></p>
 					</Menu.Item>
 					<Menu.Item>
 						<p onClick={this.handleFun.bind(this)}><NavLink to={{pathname:'/messages',state:this.fun}}>Message</NavLink></p>
@@ -99,7 +99,7 @@ class Header extends React.Component{
 				<Icon onClick={()=>this.props.history.goBack()} style={{fontSize:'30px',color:'#fff'}} type="left-circle" />
 				<h1><NavLink to='/'><img src={img} alt="img"/></NavLink></h1>
 				{
-					Islogin ? 
+					Islogin ?
 					<Dropdown trigger={['click']} overlay={menu}>
 						<Badge showZero count={messages}>
 							<Avatar size='large' src={data.avatar_url} />
@@ -107,8 +107,8 @@ class Header extends React.Component{
 					</Dropdown>
 					:
 					<div>
-						<Button 
-						 	type="dashed" 
+						<Button
+						 	type="dashed"
 						 	size="large"
 						 	onClick={this.handleClick.bind(this)} >
 						 	Login
@@ -116,7 +116,7 @@ class Header extends React.Component{
 						<Modal
 							style={{marginTop:'50px'}}
 							title="Login"
-							visible={visible} 
+							visible={visible}
 							okText="OK"
 							confirmLoading={confirmLoading}
 							cancelText="Cancel"
@@ -137,14 +137,14 @@ class Header extends React.Component{
 								prefix={<Icon type="lock" />}
 								/>
 
-						</Modal>							
+						</Modal>
 					</div>
 				}
 			</header>
 		)
 	}
-} 
+}
 export default withRouter(Header)
 
 
-//4e30943f-f3ec-4d59-b897-f97f2418cfb9 
+//4e30943f-f3ec-4d59-b897-f97f2418cfb9

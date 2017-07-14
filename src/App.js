@@ -7,6 +7,7 @@ import NewTopic from './components/NewTopic';
 import Collect from './components/Collect';
 import Message from './components/Message';
 import Personal from './components/Personal';
+import People from './components/People';
 
 
 
@@ -23,6 +24,7 @@ class App extends React.Component{
 						<Route path='/topic/:id' component={TopicId} />
 						<Route path='/messages' component={Message}  />
 						<Route path='/user/:loginname' component={Personal} />
+						<Route path='/people/:loginname' component={People} />
 						<Route path='/topic_collect/:loginname' component={Collect} />
 						<Route path='/topics' component={NewTopic} />
 
@@ -31,7 +33,7 @@ class App extends React.Component{
 			</div>
 		)
 	}
-} 
+}
 export default App
 
 //HashRouter
