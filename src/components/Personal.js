@@ -14,26 +14,26 @@ class Personal extends React.Component{
 			number:'',
 		}
 	}
-	componentDidMount(){
-		let loginname = this.props.match.params.loginname
+	componentWillReceiveProps(props){
+		let loginname = props.match.params.loginname
 		if (loginname) {
 			axios.get(`${url}/user/${loginname}`)
 				.then( res => this.setState({data:res.data.data}) )
 				.catch( err => message.error('Please Login') )
-			axios.get(`${url}/topic_collect/${loginname}`)
+	 		axios.get(`${url}/topic_collect/${loginname}`)
 				.then( res => this.setState({number:res.data.data.length}) )
-				.catch( err => message.error('Please Login') )
+	 			.catch( err => message.error('Please Login') )
 		}
 	}
-	handleClick(loginname){
-		if (loginname) {
+	componentDidMount(){
+		let loginname = this.props.match.params.loginname
 			axios.get(`${url}/user/${loginname}`)
 				.then( res => this.setState({data:res.data.data}) )
 				.catch( err => message.error('Please Login') )
 			axios.get(`${url}/topic_collect/${loginname}`)
 				.then( res => this.setState({number:res.data.data.length}) )
 				.catch( err => message.error('Please Login') )
-		}
+		
 	}
 	render(){
 		let {data , number} = this.state;
@@ -71,7 +71,7 @@ class Personal extends React.Component{
 								data.recent_replies.map( item =>
 									<div className="Personal_show" key={item.id}>
 										<div className="people">
-											<Avatar onClick={this.handleClick.bind(this,item.author.loginname)} src={item.author.avatar_url} />
+											<NavLink to={`/user/${item.author.loginname}`}><Avatar src={item.author.avatar_url} /></NavLink>
 											&nbsp;
 											&nbsp;
 											<span>{item.author.loginname}</span>

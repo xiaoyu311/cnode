@@ -1,5 +1,5 @@
 import React from 'react';
-import { HashRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Home from './components/Home';
 import TopicId from './components/TopicId';
@@ -7,7 +7,6 @@ import NewTopic from './components/NewTopic';
 import Collect from './components/Collect';
 import Message from './components/Message';
 import Personal from './components/Personal';
-import People from './components/People';
 
 
 
@@ -16,7 +15,7 @@ class App extends React.Component{
 	render(){
 		return(
 			<div>
-				<HashRouter>
+				<BrowserRouter>
 					<div>
 						<Header />
 
@@ -24,12 +23,11 @@ class App extends React.Component{
 						<Route path='/topic/:id' component={TopicId} />
 						<Route path='/messages' component={Message}  />
 						<Route path='/user/:loginname' component={Personal} />
-						<Route path='/people/:loginname' component={People} />
 						<Route path='/topic_collect/:loginname' component={Collect} />
 						<Route path='/topics' component={NewTopic} />
 
 					</div>
-				</HashRouter>
+				</BrowserRouter>
 			</div>
 		)
 	}

@@ -33,7 +33,7 @@ class Header extends React.Component{
 	handleOk(){
 		this.setState({confirmLoading:true})
 		let accesstoken = this.state.input;
-		axios.post(`${url}/accesstoken`, {accesstoken})//这为啥加大括号
+		axios.post(`${url}/accesstoken`, {accesstoken})
 			.then( res => {
 				message.success('THIS IS A MESSAGE OF SUCCESS')
 				this.setState({
@@ -78,7 +78,7 @@ class Header extends React.Component{
 						<h3>{data.loginname}</h3>
 					</Menu.Item>
 					<Menu.Item>
-						<p><NavLink to={`/people/${sessionStorage.loginname}`}>Personal center</NavLink></p>
+						<p><NavLink to={`/user/${sessionStorage.loginname}`}>Personal center</NavLink></p>
 					</Menu.Item>
 					<Menu.Item>
 						<p onClick={this.handleFun.bind(this)}><NavLink to={{pathname:'/messages',state:this.fun}}>Message</NavLink></p>

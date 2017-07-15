@@ -194,11 +194,11 @@ class TopicId extends React.Component{
 							{
 								data.replies.map( (item, index) => (
 									<div className="show" key={item.id}>
-										<Avatar src={item.author.avatar_url} alt="author" />
+										<NavLink to={`/user/${item.author.loginname}`}><Avatar src={item.author.avatar_url} alt="author" /></NavLink>
 										<div className="details">
 											<div className="details_first">
 												<div>
-													<span><NavLink to="/">{item.author.loginname}</NavLink></span>
+													<span><NavLink to={`/user/${item.author.loginname}`}>{item.author.loginname}</NavLink></span>
 													&nbsp;
 													<span>{index+1}楼</span>
 													&nbsp;
