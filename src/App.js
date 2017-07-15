@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { HashRouter, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Home from './components/Home';
 import TopicId from './components/TopicId';
@@ -15,7 +15,7 @@ class App extends React.Component{
 	render(){
 		return(
 			<div>
-				<BrowserRouter>
+				<HashRouter>
 					<div>
 						<Header />
 
@@ -27,7 +27,7 @@ class App extends React.Component{
 						<Route path='/topics' component={NewTopic} />
 
 					</div>
-				</BrowserRouter>
+				</HashRouter>
 			</div>
 		)
 	}
